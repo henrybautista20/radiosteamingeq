@@ -1,0 +1,12 @@
+properties:
+  template:
+    containers:
+      - name: radio
+        image: dokregistry.azurecr.io/streamingreqimg:latest
+        volumeMounts:
+          - volumeName: volcontainerapp
+            mountPath: /app/audios
+    volumes:
+      - name: volcontainerapp
+        storageType: AzureFile
+        storageName: smbradios

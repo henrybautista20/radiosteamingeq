@@ -1,0 +1,7 @@
+aiohttp==3.8.1
+async-timeout==4.0.2
+azure-storage-blob
+nest_asyncio
+pandas
+azure-storage-file-share
+Flask
