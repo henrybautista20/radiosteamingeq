@@ -11,6 +11,19 @@ from datetime import datetime, timedelta, time
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s:%(message)s')
 
 logging.info("Start app.")
+logging.info("PRUEBA DE ESCRITURA")
+# 2. --- PRUEBA DE ESCRITURA ---
+ruta_prueba = os.path.join("audios", "prueba_volumen.txt")
+logging.info(f"Intentando escribir archivo de prueba en: {ruta_prueba}")
+
+try:
+    with open(ruta_prueba, "w") as f:
+        f.write("¡Hola Henry! El volumen está montado correctamente y Python tiene permisos de escritura.")
+    logging.info("Archivo de prueba guardado exitosamente en el volumen.")
+except Exception as e:
+    logging.error(f"Error crítico: No se pudo escribir en el volumen. Detalles: {e}")
+# ------------------------------
+
 out_dir = os.path.join("audios", "radio_stream")
 os.makedirs(out_dir, exist_ok=True)
 

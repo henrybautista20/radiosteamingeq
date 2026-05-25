@@ -1,18 +1,20 @@
-    #!/bin/bash
+#!/bin/bash
 
-    # Start the Flask health check app in the background
-    # We use nohup and & to ensure it runs even if the script is interrupted
-    # Redirect stdout/stderr to files or /dev/null as needed
-    echo "Starting Flask health check app..."
-    nohup python /app/dummy.py > /dev/null 2>&1 &
+# Start the Flask health check app in the background
+echo "Starting Flask health check app..."
+nohup python dummy.py > flask.log 2>&1 &
 
-    # Wait a moment to ensure the Flask app starts
-    sleep 5
+# Wait a moment to ensure the Flask app starts
+sleep 3
 
-    echo "Starting main application..."
-    # Execute your main application script
-    # This command will run in the foreground, keeping the container alive
-    exec python /app/main.py
+# Check if Flask app is running
+if ps aux | grep -v grep | grep "dummy.py" > /dev/null
+then
+    echo "Flask health check app successfully started."
+else
+    echo "WARNING: Flask health check app failed to start."
+fi
 
-    # The script will exit when main.py finishes
-    
+echo "Starting main application..."
+# Execute the main application script in the foreground to keep container alive
+exec python main.py
