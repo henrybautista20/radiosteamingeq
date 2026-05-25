@@ -261,3 +261,18 @@ az storage file list \
 
 ---
 *Guía de replicación elaborada por Antigravity.*
+# Obtener llave de acceso
+STORAGE_KEY=$(az storage account keys list \
+  --resource-group $RESOURCE_GROUP \
+  --account-name $STORAGE_ACCOUNT \
+  --query "[0].value" \
+  --output tsv)
+# Registrar volumen SMB
+az containerapp env storage set \
+  --name $ACA_ENV_NAME \
+  --resource-group $RESOURCE_GROUP \
+  --storage-name smbradios \
+  --azure-file-account-name $STORAGE_ACCOUNT \
+  --azure-file-account-key "$STORAGE_KEY" \
+  --azure-file-share-name $FILE_SHARE_NAME \
+  --access-mode ReadWrite
